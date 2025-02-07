@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+<!-- Mirrored from spacingtech.com/html/vegist-final/vegist/index1.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Jan 2025 07:29:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <script type='text/javascript'>
+        var user='{{request.user}}'
+    
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+    
+        function getCookie(name){
+            var cookieArr = document.cookie.split(";");
+            for(var i = 0; i<cookieArr.length;i++){
+                var cookiePair = cookieArr[i].split("=");
+                if(name == cookiePair[0].trim())
+                {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+        var cart = JSON.parse(getCookie('cart'));
+        if(cart == undefined){
+            cart={};
+            console.log('cart is created');
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+        }
+        console.log('cart:',cart)
+    
+        function getfavCookie(name){
+            var favcookieArr = document.cookie.split(";");
+            for(var i = 0; i<cookieArr.length;i++){
+                var favcookiePair = favcookieArr[i].split("=");
+                if(name == favcookiePair[0].trim())
+                {
+                    return decodeURIComponent(favcookiePair[1]);
+                }
+            }
+            return null;
+        }
+        var favcart = JSON.parse(getCookie('favcart'));
+        if(favcart == undefined){
+            favcart={};
+            console.log('favcart is created');
+            document.cookie = 'favcart=' + JSON.stringify(favcart) + ";domain=;path=/";
+        }
+        console.log('favcart:',favcart)
+    </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title -->
+        <title>
+            Vegist-
+            {% block title %}
+            
+            {% endblock title %}
+        </title>
+        <meta name="description" content="A best clean, modern, stylish, creative, responsive theme for different eCommerce business or industries."/>
+        <meta name="keywords" content="organic food theme, vegetables, foof store, eCommerce html template, responsive, electronics store, furniture wood, fashion, furniture, mobile, watches, electronics, computers accessories, toys, jewellery, restaurant accessories"/>
+        <meta name="author" content="spacingtech_webify">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/favicon" href="{% static 'images/fevicon.png' %}'%}">
+        <!-- bootstrap -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- simple-line icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
+        <!-- font-awesome icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+        <!-- ion icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+        <!-- owl slider -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+        <!-- swiper -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+        <!-- animation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+        <!-- style -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    </head>
+    <body class="home-1">
+
+        {% include "header.html" %}
+        {% comment %} {% include "message.html" %} {% endcomment %}
+        {% block content %}
+        
+
+        {% endblock content %}
+        {% include "footer.html" %}
+
+        
+        <!-- jquery -->
+        <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <!-- bootstrap -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!-- popper -->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <!-- fontawesome -->
+        <script src="{% static 'js/fontawesome.min.js' %}"></script>
+        <!-- owl carousal -->
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- swiper -->
+        <script src="{% static 'js/swiper.min.js' %}"></script>
+        <!-- custom -->
+        <script src="{% static 'js/custom.js' %}"></script>
+        <!--sweetify-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
+        <script>
+            let updateBtns = document.getElementsByClassName('update-crt');
+
+            for (var i = 0; i < updateBtns.length; i++) {
+                updateBtns[i].addEventListener('click', function () {
+                    var productId = this.dataset.product;
+                    var action = this.dataset.action;
+
+                    var size = this.dataset.size; // Get the size
+                    var price = this.dataset.price; // Get the price
+                    var quan = this.dataset.quantity;
+                    var quantity = Number(quan); // Ensure quantity is a number
+                    console.log('productId:', productId, 'action:', action, 'size:', size, 'price:', price, 'quantity:', quantity);
+                    alert('Button Clicked')
+                    if (user === 'AnonymousUser') {
+                        addCookieItem(productId, action, size, price, quantity);
+                    } else {
+                        updateUserOrder(productId, action, size, price, quantity);
+                    }
+                });
+            }
+
+
+            function addCookieItem(productId, action, size, price, quantity) {
+                console.log('User Not Logged in..!');
+            
+                // Generate a unique cart item key based on productId, size, and price
+                function generateCartItemKey(productId, size, price) {
+                    return productId + "_" + size + "_" + price; // Combine productId, size, and price into a unique key
+                }
+            
+                // Generate the unique cart key for this item
+                const cartItemKey = generateCartItemKey(productId, size, price);
+            
+                if (action == 'add') {
+                    if (cart[cartItemKey] == undefined) {
+                        // Add a new item to the cart with the unique cart item key
+                        cart[cartItemKey] = {'productId':productId, 'quantity': quantity, 'size': size, 'price': price };
+                        swal.fire('Product added to cart!');
+                    } else {
+                        // If the item exists, update the quantity
+                        cart[cartItemKey]['quantity'] += 1;
+                        swal.fire('Item updated in cart!');
+                    }
+                }
+            
+                if (action == 'remove') {
+                    if (cart[cartItemKey]) {
+                        cart[cartItemKey]['quantity'] -= 1;
+            
+                        if (cart[cartItemKey]['quantity'] <= 0) {
+                            swal.fire('Product removed from cart!');
+                            delete cart[cartItemKey];
+                        }
+                    }
+                }
+            
+                if (action == 'delete') {
+                    delete cart[cartItemKey];
+                    swal.fire('Product removed from cart!');
+                }
+            
+                console.log('Cart:', cart);
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+                location.reload();
+            }
+            
+
+            function updateUserOrder(productId, action,size,price,quantity){
+                console.log('User is authenticated, sending data...')
+                
+
+                    var url = '/update_item/'
+
+                    fetch(url, {
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'X-CSRFToken':csrftoken,
+                        }, 
+                        body:JSON.stringify({'productId':productId, 'action':action,'size':size,'price':price,'quantity':quantity})
+                    })
+                    .then((response) => {
+                    return response.json();
+                    })
+                    .then((data) => {
+                        location.reload()
+                    });
+            }
+
+            var updateFav = document.getElementsByClassName('update-fav')
+
+            for(var i = 0; i < updateFav.length; i++){
+                updateFav[i].addEventListener('click',function(){
+                    var productId = this.dataset.product
+                    var action = this.dataset.action
+                    console.log('productId:',productId,'action:',action)
+
+                    console.log('User:',user)
+                        if(user === 'AnonymousUser'){
+                            addfavCookieItem(productId,action)
+                        }
+                        else{
+                            updatefavorite(productId, action)
+                        }
+                })
+            }
+
+            function addfavCookieItem(productId,action){
+                console.log('User Not Logged in..!')
+
+                if (action == 'add'){
+                    if (favcart[productId] == undefined){
+                        favcart[productId] = {'quantity':1}
+                        swal.fire('Product added in Favorites!')
+                    }
+                    else{
+                        swal.fire('Product already in Favorites..!')
+                    }
+                }
+                if (action == 'delete'){
+                    delete favcart[productId];
+                    swal.fire('Product removed from Favorites..!')
+                }
+                console.log('favcart:',favcart)
+                document.cookie = 'favcart=' + JSON.stringify(favcart) + ";domain=;path=/"
+                location.reload()
+            }
+
+            function updatefavorite(productId, action){
+                console.log('User is authenticated, sending data...')
+
+                    var url = '/fav/'
+
+                    fetch(url, {
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'X-CSRFToken':csrftoken,
+                        }, 
+                        body:JSON.stringify({'productId':productId, 'action':action})
+                    })
+                    .then((response) => {
+                    return response.json();
+                    })
+                    .then((data) => {
+                        location.reload()
+                    });
+            }
+
+            
+        </script>
+        
+        
+    </body>
+    </html>
+    {% load sweetify %}
+    {% sweetify %}

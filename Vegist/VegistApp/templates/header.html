@@ -1,0 +1,443 @@
+{% load static %}
+ <!-- top notificationbar start -->
+ <section class="top1">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="top-home">
+                    <li class="top-home-li">
+                        <!-- currency start -->
+                        <div class="currency">
+                            <span class="currency-head">currency:</span>
+                            <div class="currency-drop">
+                                <div class="eur">
+                                    <img class="img-fluid" src="{% static 'images/c-icon1.png' %}" alt="">
+                                    <span class="cur-name">EUR</span>
+                                </div>
+                                <ul class="all-currency">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon4.png' %}" alt="">
+                                            <span class="cur-name">AFN</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon2.png' %}" alt="">
+                                            <span class="cur-name">BDT</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon3.png' %}" alt="">
+                                            <span class="cur-name">CAD</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon1.png' %}" alt="">
+                                            <span class="cur-name">EUR</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon5.png' %}" alt="">
+                                            <span class="cur-name">GBP</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon6.png' %}" alt="">
+                                            <span class="cur-name">INR</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon7.png' %}" alt="">
+                                            <span class="cur-name">SAR</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img class="img-fluid" src="{% static 'images/c-icon8.png' %}" alt="">
+                                            <span class="cur-name">USD</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- currency end -->
+                        <!-- mobile search start -->
+                        <div class="r-search">
+                            <a href="#r-search-modal" class="search-popuup" data-bs-toggle="modal"><i class="fa fa-search"></i></a>
+                            <div class="modal fade" id="r-search-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="m-drop-search">
+                                                <form action="{% url 'search' %}" method="POST">
+                                                    {% csrf_token %}
+                                                <input type="text" name="keyword" placeholder="Search products, brands or advice" required>
+                                                <button class="search-btn"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                            <button type="button" class="close" data-bs-dismiss="modal"><i class="ion-close-round"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- mobile search end -->
+                    </li>
+                    <li class="top-home-li t-content">
+                        <!-- offer text start -->
+                        <div class="top-content">
+                            <p class="top-slogn"><span class="top-c">Free shipping</span> orders from all item</p>
+                        </div>
+                        <!-- offer text end -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- top notificationbar end -->
+
+<!-- header start -->
+<header class="header-area">
+    <div class="header-main-area">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header-main">
+                        <!-- logo start -->
+                        <div class="header-element logo">
+                            <a href="/">
+                                <img src="{% static 'images/Kavi_logo.png' %}" style="height:50px;" alt="logo-image" class="img-fluid">
+                            </a>
+                        </div>
+                        <!-- logo end -->
+                        <!-- search start -->
+                        <div class="header-element search-wrap">
+                            <form action="{% url 'search' %}" method="POST">
+                                {% csrf_token %}
+                            <input type="text" name="keyword" placeholder="Search product" required>
+                            <button class="search-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <!-- search end -->
+                        <!-- header-icon start -->
+                        <div class="header-element right-block-box">
+                            <ul class="shop-element">
+                                <li class="side-wrap nav-toggler">
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                                    <span class="line"></span>
+                                    </button>
+                                </li>
+                                <li class="side-wrap user-wrap">
+                                    <div class="acc-desk">
+                                        <div class="user-icon">
+                                            <a href="/" class="user-icon-desk">
+                                                <span><i class="icon-user"></i></span>
+                                            </a>
+                                        </div>
+                                        <div class="user-info">
+                                            {% if request.user.is_authenticated %}
+                                                <span class="acc-title">{{request.user.first_name}}</span>
+                                                <div class="account-login">
+                                                    <a href="{% url 'orders' %}">Orders</a>
+                                                    <a href="{% url 'logout' %}">Logout</a>
+                                                </div>
+                                            {% else %}
+                                                <span class="acc-title">Account</span>
+                                                <div class="account-login">
+                                                    <a href="{% url 'register' %}">Register</a>
+                                                    <a href="{% url 'loginpage' %}">Login</a>
+                                                </div>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="acc-mob">
+                                        <a href="/" class="user-icon">
+                                            <span><i class="icon-user"></i></span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="side-wrap wishlist-wrap">
+                                    <a href="{% url 'wishlist' %}" class="header-wishlist">
+                                        <span class="wishlist-icon"><i class="icon-heart"></i></span>
+                                        <span class="wishlist-counter">{{favcount}}</span>
+                                    </a>
+                                </li>
+                                <li class="side-wrap cart-wrap">
+                                    <div class="shopping-widget">
+                                        <div class="shopping-cart">
+                                            <a href="javascript:void(0)" class="cart-count">
+                                                <span class="cart-icon-wrap">
+                                                    <span class="cart-icon"><i class="icon-handbag"></i></span>
+                                                    <span id="cart-total" class="bigcounter">{{cartitems}}</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- header-icon end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="main-menu-area">
+                            <div class="main-navigation navbar-expand-xl">
+                                <div class="box-header menu-close">
+                                    <button class="close-box" type="button"><i class="ion-close-round"></i></button>
+                                </div>
+                                <!-- menu start -->
+                                <div class="navbar-collapse" id="navbarContent">
+                                    <div class="megamenu-content">
+                                        <div class="mainwrap">
+                                            <ul class="main-menu">
+                                                <li class="menu-link parent">
+                                                    <a href="/" class="link-title">
+                                                        <span class="sp-link-title">Home</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link parent">
+                                                    <a href="javascript:void(0)" class="link-title">
+                                                        <span class="sp-link-title">Shop</span>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <a href="#collapse-mega-menu" data-bs-toggle="collapse" class="link-title link-title-lg">
+                                                        <span class="sp-link-title">Shop</span>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-submenu mega-menu collapse" id="collapse-mega-menu">
+                                                        {% for category in categories %}
+                                                        <li class="megamenu-li parent">
+                                                            <h2 class="sublink-title">{{ category.name }}</h2>
+                                                            <a href="#collapse-sub-mega-menu-{{ category.id }}" data-bs-toggle="collapse" class="sublink-title sublink-title-lg">
+                                                                <span>{{ category.name }}</span>
+                                                                <i class="fa fa-angle-down"></i>
+                                                            </a>
+                                                            <ul class="dropdown-supmenu collapse" id="collapse-sub-mega-menu-{{ category.id }}">
+                                                                {% for product in category.products.all %}
+                                                                <li class="supmenu-li">
+                                                                    <a href="{% url 'product_details' product.name %}">{{ product.name }}</a>
+                                                                </li>
+                                                                {% empty %}
+                                                                <li>No products available</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                                
+                                                <li class="menu-link parent">
+                                                    <a href="grid-list.html" class="link-title">
+                                                        <span class="sp-link-title">Collection</span>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <a href="#collapse-banner-menu" data-bs-toggle="collapse" class="link-title link-title-lg">
+                                                        <span class="sp-link-title">Collection</span>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-submenu banner-menu collapse" id="collapse-banner-menu">
+                                                        <li class="menu-banner">
+                                                            <a href="{% url 'bestseller' %}" onclick="scrollToContact();" class="menu-banner-img"><img src="{% static 'images/menu-banner01.jpg' %}" alt="menu-image" class="img-fluid"></a>
+                                                            <a href="{% url 'bestseller' %}" class="menu-banner-title"><span>Bestseller</span></a>
+                                                        </li>
+                                                        <li class="menu-banner">
+                                                            <a href="{% url 'newproducts' %}" class="menu-banner-img"><img src="{% static 'images/menu-banner02.jpg' %}" alt="menu-image" class="img-fluid"></a>
+                                                            <a href="{% url 'newproducts' %}" class="menu-banner-title"><span>New product</span></a>
+                                                        </li>
+                                                        <li class="menu-banner">
+                                                            <a href="{% url 'featuredproducts' %}" class="menu-banner-img"><img src="{% static 'images/menu-banner03.jpg' %}" alt="mneu image" class="img-fluid"></a>
+                                                            <a href="{% url 'featuredproducts' %}" class="menu-banner-title"><span>Featured product</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- menu end -->
+                                <div class="img-hotline">
+                                    <div class="image-line">
+                                        <a href="javascript:void(0)"><img src="{% static 'images/icon_contact.png' %}" class="img-fluid" alt="image-icon"></a>
+                                    </div>
+                                    <div class="image-content">
+                                        <span class="hot-l">Hotline:</span>
+                                        <span>0123 456 789</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mini-cart">
+        <a href="javascript:void(0)" class="shopping-cart-close"><i class="ion-close-round"></i></a>
+        <div class="cart-item-title">
+            <p>
+                <span class="cart-count-desc">There are</span>
+                <span class="cart-count-item bigcounter">{{order.get_cart}}</span>
+                <span class="cart-count-desc">Products</span>
+            </p>
+        </div>
+        <ul class="cart-item-loop">
+            {% for item in items %}
+            <li class="cart-item">
+                <div class="cart-img">
+                    <a href="">
+                        <img src="{{item.product.Imageurl}}" alt="cart-image" class="img-fluid">
+                    </a>
+                </div>
+                <div class="cart-title">
+                    <h6><a href="product.html">{{item.product.name}}</a></h6>
+                    <div class="cart-pro-info">
+                        <div class="cart-qty-price">
+                            <span>(
+                                {% if item.size == '1000' %}
+                                1kg
+                                {% elif item.size == '500' %}
+                                500g
+                                {% elif item.size == '350' %}
+                                350g
+                                {% elif item.size == '300' %}
+                                300g
+                                {% elif item.size == '250' %}
+                                250g
+                                {% elif item.size == '100' %}
+                                100g
+                                {% endif %}
+                                )</span>
+                            <span class="quantity">{{item.quantity}} * </span>
+                            <span class="price-box">{{item.price | floatformat:2}}</span>
+                            <span></span>
+                            <span>{{item.get_total | floatformat:2}}</span>
+                        </div>
+                        {% comment %} <div class="delete-item-cart">
+                            <a href="" class="update-cart" id="btnCart" data-product="{{ item.product.id }}" data-action="delete" data-size="{{item.size}}" data-price="{{item.price}}" data-quantity="{{item.quantity}}"><i class="icon-trash icons"></i></a>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul class="subtotal-title-area">
+            <li class="subtotal-info">
+                <div class="subtotal-titles">
+                    <h6>Sub total:</h6>
+                    <span class="subtotal-price">{{order.get_cart_total}}</span>
+                </div>
+            </li>
+            <li class="mini-cart-btns">
+                <div class="cart-btns">
+                    <a href="{% url 'cartpage' %}" class="btn btn-style2">View cart</a>
+                    <a href="{% url 'checkout' %}" class="btn btn-style2">Checkout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<!-- mobile menu start -->
+<div class="header-bottom-area mobile">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="main-menu-area">
+                    <div class="main-navigation navbar-expand-xl">
+                        <div class="box-header menu-close">
+                            <button class="close-box" type="button"><i class="ion-close-round"></i></button>
+                        </div>
+                        <!-- menu start -->
+                        <div class="navbar-collapse" id="navbarContent01">
+                            <div class="megamenu-content">
+                                <div class="mainwrap">
+                                    <ul class="main-menu">
+                                        <li class="menu-link parent">
+                                            <a href="/" class="link-title link-title-lg">
+                                                <span class="sp-link-title">Home</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link parent">
+                                            <a href="javascript:void(0)" class="link-title">
+                                                <span class="sp-link-title">Shop</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <a href="#collapse-mega-menu1" data-bs-toggle="collapse" class="link-title link-title-lg">
+                                                <span class="sp-link-title">Shop</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-submenu mega-menu collapse" id="collapse-mega-menu1">
+                                                {% for category in categories %}
+                                                <li class="megamenu-li parent">
+                                                    <h2 class="sublink-title">{{category.name}}</h2>
+                                                    <a href="#collapse-sub-mega-menu1-{{category.id}}" data-bs-toggle="collapse" class="sublink-title sublink-title-lg">
+                                                        <span>{{category.name}}</span>
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </a>
+                                                    <ul class="dropdown-supmenu collapse" id="collapse-sub-mega-menu1-{{category.id}}">
+                                                        {% for product in category.products.all %}
+                                                        <li class="supmenu-li"><a href="{% url 'product_details' product.name %}">{{product.name}}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li class="menu-link parent">
+                                            <a href="grid-list.html" class="link-title">
+                                                <span class="sp-link-title">Collection</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <a href="#collapse-banner-menu1" data-bs-toggle="collapse" class="link-title link-title-lg">
+                                                <span class="sp-link-title">Collection</span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-submenu banner-menu collapse" id="collapse-banner-menu1">
+                                                <li class="menu-banner">
+                                                    <a href="{% url 'bestseller' %}" class="menu-banner-img"><img src="{% static 'images/menu-banner01.jpg' %}" alt="menu-image" class="img-fluid"></a>
+                                                    <a href="{% url 'bestseller' %}" class="menu-banner-title"><span>Bestseller</span></a>
+                                                </li>
+                                                <li class="menu-banner">
+                                                    <a href="{% url 'newproducts' %}" class="menu-banner-img"><img src="{% static 'images/menu-banner02.jpg' %}" alt="menu-image" class="img-fluid"></a>
+                                                    <a href="{% url 'newproducts' %}" class="menu-banner-title"><span>Special product</span></a>
+                                                </li>
+                                                <li class="menu-banner">
+                                                    <a href="{% url 'featuredproducts' %}" class="menu-banner-img"><img src="{% static 'images/menu-banner03.jpg' %}" alt="mneu image" class="img-fluid"></a>
+                                                    <a href="{% url 'featuredproducts' %}" class="menu-banner-title"><span>Featured product</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- menu end -->
+                        <div class="img-hotline">
+                            <div class="image-line">
+                                <a href="javascript:void(0)"><img src="{% static 'images/icon_contact.png' %}" class="img-fluid" alt="image-icon"></a>
+                            </div>
+                            <div class="image-content">
+                                <span class="hot-l">Hotline:</span>
+                                <span>0123 456 789</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- mobile menu end -->

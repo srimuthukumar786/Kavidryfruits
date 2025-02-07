@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Verify OTP
+{% endblock title %}
+
+{% block content %}
+        
+    <!-- breadcrumb start -->
+    <section class="about-breadcrumb">
+        <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="about-l">
+                            <ul class="about-link">
+                                <li class="go-home"><a href="/">Home</a></li>
+                                <li class="about-p"><span>Verify OTP</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end -->
+    <!-- login start -->
+    <section class="section-tb-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="login-area">
+                        <div class="login-box">
+                            <h1>Login with OTP</h1>
+                            <p>Please login below account detail</p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <label>Email address</label>
+                                <input type="text" name="otp" placeholder="Enter OTP">
+                                <button type="submit" class="btn-style1 mt-3 w-100">Verify OTP</button>
+                                <a href="{% url 'loginpage' %}" class="btn-style1">Back</a>
+                            </form>
+                        </div>
+                        <div class="login-account">
+                            <h4>Don't have an account?</h4>
+                            <a href="{% url 'register' %}" class="ceate-a">Create account</a>
+                            <div class="login-info">
+                                <a href="{% url 'termsconditions' %}" class="terms-link"><span>*</span> Terms & conditions.</a>
+                                <p>Your privacy and security are important to us. For more information on how we use your data read our <a href="privacy-policy.html">privacy policy</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- login end -->
+    {% endblock content %}

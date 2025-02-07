@@ -1,0 +1,131 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+        
+        <!-- breadcrumb start -->
+        <section class="about-breadcrumb">
+            <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="about-l">
+                                <ul class="about-link">
+                                    <li class="go-home"><a href="index1.html">Home</a></li>
+                                    <li class="about-p"><span>Your shopping cart</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb end -->
+        <!-- cart start -->
+        <section class="cart-page section-tb-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="cart-area">
+                            <div class="cart-details">
+                                <div class="cart-item">
+                                    <span class="cart-head">My cart:</span>
+                                    <span class="c-items">{{order.get_cart_items}} item</span>
+                                </div>
+                                {% for item in items %}
+                                <div class="cart-all-pro">
+                                    <div class="cart-pro">
+                                        <div class="cart-pro-image">
+                                            <a href="{% url 'product_details' item.product.name%}"><img src="{{item.product.Imageurl}}" style="height:200px;" class="img-fluid" alt="image"></a>
+                                        </div>
+                                        <div class="pro-details">
+                                            <h4><a href="{% url 'product_details' item.product.name%}">{{item.product.name}}</a></h4>
+                                            <span class="pro-size"><span class="size">Size:</span>
+                                            {% if item.size == '1000' %}
+                                            1kg
+                                            {% elif item.size == '500' %}
+                                            500g
+                                            {% elif item.size == '350' %}
+                                            350g
+                                            {% elif item.size == '300' %}
+                                            300g
+                                            {% elif item.size == '250' %}
+                                            250g
+                                            {% elif item.size == '100' %}
+                                            100g
+                                            {% endif %}
+                                        </span>
+                                            <span class="cart-pro-price">{{item.price|floatformat:2}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="qty-item">
+                                        <div class="center">
+                                            <div class="plus-minus">
+                                                <span>
+                                                    <a href="javascript:void(0)" class="minus-btn text-black update-crt" id="Cartbtn" data-product="{{ item.product.id }}" data-action="remove" data-size="{{item.size}}" data-price="{{item.price}}" data-quantity="{{item.quantity}}">-</a>
+                                                    <input type="text" name="name" value="{{item.quantity}}">
+                                                    <a href="javascript:void(0)" class="plus-btn text-black update-crt" id="Cartbtn" data-product="{{ item.product.id }}" data-action="add" data-size="{{item.size}}" data-price="{{item.price}}" data-quantity="{{item.quantity}}">+</a>
+                                                </span>
+                                            </div>
+                                            <a href="" class="pro-remove update-crt" id="Cartbtn" data-product="{{ item.product.id }}" data-action="delete" data-size="{{item.size}}" data-price="{{item.price}}" data-quantity="{{item.quantity}}">Delete</a>
+                                        </div>
+                                    </div>
+                                    <div class="all-pro-price">
+                                        <span>{{item.get_total}}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="cart-total">
+                            {% comment %} <div class="cart-price">
+                                <span>Subtotal</span>
+                                <span class="total">$78.44 CAD</span>
+                            </div> {% endcomment %}
+                            {% comment %} <div class="cart-info">
+                                <h4>Shipping info</h4>
+                                <form>
+                                    <label>Country</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option>---</option>
+                                        <option>Afghanistan</option>
+                                        <option>Åland Islands</option>
+                                        <option>Albania</option>
+                                        <option>Algeria</option>
+                                        <option>Andorra</option>
+                                        <option>Angola</option>
+                                        <option>Anguilla</option>
+                                        <option>Antigua & Barbuda</option>
+                                        <option>Argentina</option>
+                                        <option>Armenia</option>
+                                        <option>Aruba</option>
+                                        <option>Ascension Island</option>
+                                        <option>Australia</option>
+                                        <option>Austria</option>
+                                        <option>Azerbaijan</option>
+                                        <option>Bahamas</option>
+                                        <option>Bahrain</option>
+                                    </select>
+                                    <label>Zip/postal code</label>
+                                    <input type="text" name="code" placeholder="Zip/postal code">
+                                </form>
+                                <a href="javascript:void(0)" class="btn btn-style1 cart-calculate">Calculate</a>
+                            </div> {% endcomment %}
+                            <div class="shop-total">
+                                <span>Total</span>
+                                <span class="total-amount">{{order.get_cart_total|floatformat:2}}</span>
+                            </div>
+                            <a href="{% url 'checkout' %}" class="check-link btn btn-style1">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- cart end -->
+{% endblock content %}

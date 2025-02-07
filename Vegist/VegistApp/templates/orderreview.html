@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Order Review
+{% endblock title %}
+
+{% block content %}
+<div style="text-align:center;">
+    <h4>Write a Feedback</h4>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+    {{review_form.review}}
+    </div>
+    <div>
+        {{review_form.rating}}
+    </div>
+    <button type="submit" class="btn btn-style1 mt-2">Submit</button>
+</form>
+</div>
+{% endblock %}

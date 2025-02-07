@@ -1,0 +1,70 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Wishlist
+{% endblock title %}
+
+{% block content %}
+    <!-- breadcrumb start -->
+    <section class="about-breadcrumb">
+        <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="about-l">
+                            <ul class="about-link">
+                                <li class="go-home"><a href="/">Home</a></li>
+                                <li class="about-p"><span>Wishlist</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end -->
+    <!-- wishlist start -->
+    <section class="wishlist-page section-tb-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    
+                    <div class="wishlist-area">
+                        <div class="wishlist-details">
+                            {% for item in fav %}
+                            <div class="wishlist-all-pro">
+                                <div class="wishlist-pro">
+                                    <div class="wishlist-pro-image">
+                                        <a href="{% url 'product_details' item.product.name%}"><img src="{{item.product.Imageurl}}" style="height:100px; width:150px;" class="img-fluid" alt="image"></a>
+                                    </div>
+                                    <div class="pro-details">
+                                        <h4><a href="{% url 'product_details' item.product.name%}">{{item.product.name}}</a></h4>
+                                    </div>
+                                </div>
+                                <div class="qty-item">
+                                    <a href="{% url 'product_details' item.product.name%}" class="add-wishlist">View Details</a>
+                                    {% comment %} <a href="" class="add-wishlist update-cart" id="btnCart" data-product="{{item.product.id}}" data-action="add" data-size="100g" data-price="{{item.product.price}}" data-quantity="1">Add to cart</a> {% endcomment %}
+                                    <a href="" class="add-wishlist update-fav" id="btnFav" data-product="{{item.product.id}}" data-action="delete">Delete</a>
+                                </div>
+                                <div class="all-pro-price">
+                                    <span class="new-price">{{item.product.price}}</span>
+                                    <span class="old-price"><del>{{item.product.regular_price}}</del></span>
+                                </div>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                            <div class="other-link">
+                                <ul class="c-link">
+                                    <li class="wishlist-other-link"><a href="grid-list.html" class="btn-style1">Continue shopping</a></li>
+                                    <li class="wishlist-other-link"><a href="" class="btn-style1">Clear wishlist</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- wishlist end -->
+    {% endblock content %}

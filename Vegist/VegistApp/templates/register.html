@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block content %}
+
+    <!-- breadcrumb start -->
+    <section class="about-breadcrumb">
+        <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="about-l">
+                            <ul class="about-link">
+                                <li class="go-home"><a href="/">Home</a></li>
+                                <li class="about-p"><span>Register</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end -->
+    <!-- login start -->
+    <section class="section-tb-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="register-area">
+                        <div class="register-box">
+                            <h1>Create account</h1>
+                            <p>Please register below account detail</p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="fname" placeholder="First name">
+                                <input type="text" name="lname" placeholder="Last name">
+                                <input type="text" name="email" placeholder="Email address">
+                                <input type="text" name="mobile" placeholder="Mobile">
+                                <input type="password" name="password" placeholder="Password">
+                                <input type="password" name="cpassword" placeholder="Conform Password">
+                                <button type="submit" class="btn-style1 mt-3">Create</button>
+                            </form>
+                        </div>
+                        <div class="register-account">
+                            <h4>Already an account holder?</h4>
+                            <a href="{% url 'loginpage' %}" class="ceate-a">Log in</a>
+                            <div class="register-info">
+                                <a href="{% url 'termsconditions' %}" class="terms-link"><span>*</span> Terms & conditions.</a>
+                                <p>Your privacy and security are important to us. For more information on how we use your data read our <a href="privacy-policy.html">privacy policy</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- login end -->
+    {% endblock content %}

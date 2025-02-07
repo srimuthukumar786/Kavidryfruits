@@ -1,0 +1,479 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Checkout
+{% endblock title %}
+
+{% block content %}
+        
+        <!-- breadcrumb start -->
+        <section class="about-breadcrumb">
+            <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="about-l">
+                                <ul class="about-link">
+                                    <li class="go-home"><a href="/">Home</a></li>
+                                    <li class="about-p"><span>Your checkout</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb end -->
+        <!-- checkout page start -->
+        <section class="section-tb-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="checkout-area">
+                            <div class="billing-area">
+                                <form method="POST" id="form">
+                                    {% csrf_token %}
+                                    <h2>Billing details</h2>
+                                    <div class="billing-form">
+                                        <ul class="billing-ul input-2">
+                                            {% if request.user.is_authenticated %}
+                                            <li class="billing-li">
+                                                <label>First name</label>
+                                                <input type="text" name="fname" value="{{request.user.first_name}}" placeholder="First name" disabled>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Last name</label>
+                                                <input type="text" name="lname" value="{{request.user.last_name}}" placeholder="Last name"disabled>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Email address</label>
+                                                <input type="text" name="mail" value="{{request.user.email}}" placeholder="Email address"disabled>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Phone number</label>
+                                                <input type="text" name="phone" value="{{request.user.mobile}}" placeholder="Phone number"disabled>
+                                            </li>
+                                            {% else %}
+                                            <li class="billing-li">
+                                                <label>First name</label>
+                                                <input type="text" name="fname" id="fname" placeholder="First name" required>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Last name</label>
+                                                <input type="text" name="lname" id="lname" placeholder="Last name" required>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Email address</label>
+                                                <input type="text" name="mail" id="mail" placeholder="Email address" required>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Phone number</label>
+                                                <input type="text" name="phone" id="phone" placeholder="Phone number" required>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Password</label>
+                                                <input type="password" name="password" id="password" placeholder="Password" required>
+                                            </li>
+                                            <li class="billing-li">
+                                                <label>Conform Password</label>
+                                                <input type="password" name="cpassword" id="cpassword" placeholder="Conform Password" required>
+                                            </li>
+                                            {% endif %}
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>Door No</label>
+                                                <input type="text" name="doorno" id="doorno" placeholder="Door No">
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>Street address</label>
+                                                <input type="text" name="street" id="street" placeholder="Street address">
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>Apartment,suite,unit etc. (Optional)</label>
+                                                <input type="text" name="apart" id="apart" placeholder="Optional">
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>Country</label>
+                                                <input type="text" name="country" value="India" placeholder="City" disabled>
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>State</label>
+                                                <select name="state" id="state">
+                                                    <option>Select a state</option>
+                                                    <option>Andhra Pradesh</option>
+                                                    <option>Arunachal Pradesh</option>
+                                                    <option>Assam</option>
+                                                    <option>Bihar</option>
+                                                    <option>Chhattisgarh</option>
+                                                    <option>Goa</option>
+                                                    <option>Gujarat</option>
+                                                    <option>Haryana</option>
+                                                    <option>Himachal Pradesh</option>
+                                                    <option>Jharkhand</option>
+                                                    <option>Karnataka</option>
+                                                    <option>Kerala</option>
+                                                    <option>Madhya Pradesh</option>
+                                                    <option>Maharashtra</option>
+                                                    <option>Manipur</option>
+                                                    <option>Meghalaya</option>
+                                                    <option>Mizoram</option>
+                                                    <option>Nagaland</option>
+                                                    <option>Odisha</option>
+                                                    <option>Punjab</option>
+                                                    <option>Rajasthan</option>
+                                                    <option>Sikkim</option>
+                                                    <option>Tamil Nadu</option>
+                                                    <option>Telangana</option>
+                                                    <option>Tripura</option>
+                                                    <option>Uttarakhand</option>
+                                                    <option>Uttar Pradesh</option>
+                                                    <option>West Bengal</option>
+                                                    <option>Andaman and Nicobar Islands</option>
+                                                    <option>Chandigarh</option>
+                                                    <option>Dadra and Nagar Haveli and Daman and Diu</option>
+                                                    <option>Lakshadweep</option>
+                                                    <option>Delhi</option>
+                                                    <option>Puducherry</option>
+                                                </select>
+                                                
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>City</label>
+                                                <input type="text" name="city" id="city" placeholder="City">
+                                            </li>
+                                        </ul>
+                                        <ul class="billing-ul">
+                                            <li class="billing-li">
+                                                <label>Postcode</label>
+                                                <input type="text" name="pin" id="pin" placeholder="Postcode">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <br>
+                                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Place Order">
+                                </form>
+                                {% if request.user.is_authenticated %}
+                                <div class="billing-details">
+                                    <form>
+                                        <h2>Shipping details</h2>
+                                        <ul class="shipping-form">              
+                                            <li class="check-box">
+                                                <input type="radio" name="new" id="new">
+                                                <label>Ship to a different address?</label>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="order-area">
+                                <div class="check-pro">
+                                    <h2>In your cart ({{order.get_cart}})</h2>
+                                    <ul class="check-ul">
+                                        {% for item in items %}
+                                        <li>
+                                            <div class="check-pro-img">
+                                                <a href=""><img src="{{item.product.Imageurl}}" class="img-fluid" alt="image"></a>
+                                            </div>
+                                            <div class="check-content">
+                                                <a href="">{{item.product.name}}</a>
+                                                <span class="check-code-blod">size: <span>{{item.size}}</span></span>
+                                                <span class="check-code-blod">Quantity: {{item.quantity}}</span>
+                                                <span class="check-price">{{item.price|floatformat:2}}</span>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <h2>Your order</h2>
+                                <ul class="order-history">
+                                    <li class="order-details">
+                                        <span>Product:</span>
+                                        <span>Total</span>
+                                    </li>
+                                    {% for item in items %}
+                                    <li class="order-details">
+                                        <span>{{item.product.name}}</span>
+                                        <span>{{item.get_total|floatformat:2}}</span>
+                                    </li>
+                                    {% endfor %}
+                                    <li class="order-details">
+                                        <span><b>Subtotal:</b></span>
+                                        <span id="subtotal">{{order.get_cart_total|floatformat:2}}</span>
+                                    </li>
+                                    <li class="order-details">
+                                        <input type="hidden" id="shippingamt" value={{order.get_cart_weight}}>
+                                        <span>Shipping charge:</span>
+                                        <span id="shiptotal"></span>
+                                    </li>
+                                    <li class="order-details">
+                                        <!-- Coupon Code Section -->
+                                        <div class="form-inline" style="display: inline-block;">
+                                            <input type="text" id="coupon_code" class="form-control" placeholder="Enter Coupon Code" style="margin-right:10px; display: inline-block; width: 200px;">
+                                            <button id="apply_coupon" class="btn btn-outline-primary">Apply</button>
+                                        </div>
+                                    </li>
+                                    <li class="order-details">
+                                        <span><b>Total:</b></span>
+                                        <span id="order-total"></span>
+                                    </li>
+                                </ul>
+                                <div class="checkout-btn hiddenbtn" id="payment-info">
+                                    <button id="rzp-button1" style="width:100%;" class="btn btn-outline-success btn-lg"><i class="fas fa-money-bill"></i> Pay <span id="total-price"></span></button>
+                                    <button id="codbtn" style="width:100%; margin-top:10px;" class="btn btn-outline-success btn-lg">Cash on Delivery</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- checkout page end -->
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            var shipamt = document.getElementById('shippingamt').value;
+            function shipcal(amount)
+            {
+                let amt = (amount/1000) * 50;
+                return amt;
+            }
+            var shiptotal = shipcal(shipamt);
+            document.getElementById('shiptotal').textContent = shiptotal.toFixed(2);
+
+            var subtotal = document.getElementById('subtotal').textContent;
+            var defaulttotal = Number(subtotal) + shiptotal;
+            document.getElementById('order-total').textContent = defaulttotal.toFixed(2);
+
+            var total = parseFloat('{{ order.get_cart_total }}');  // Get the total before any discount
+            var couponApplied = false;
+            var newTotal = defaulttotal;  // Start with total as the initial value.
+            document.getElementById('rzp-button1').textContent = 'Pay ₹' + newTotal.toFixed(2);
+
+            // Function to open Razorpay payment
+            function openRazorpay(amount) {
+                var options = {
+                    "key": "rzp_test_xRzW1RcUn1ukN9",  // Your Razorpay key
+                    "amount": amount * 100,  // Amount in paise (Razorpay accepts amount in paise, so we multiply by 100)
+                    "currency": "INR",  // Currency in INR (Indian Rupees)
+                    "description": "Kavi Dryfruits",
+                    "image": "{% static 'images/razorpay_logo.jpg' %}",  // Your logo (optional)
+                    "prefill": {
+                        "email": "kavi123@gmail.com",
+                        "contact": "+917550313640",  // Pre-fill the user's phone number if applicable
+                    },
+                    "handler": function (response) {
+                        var razorpay_payment_id = response.razorpay_payment_id;
+                        var doorno = document.getElementById('doorno').value;
+                        var street = document.getElementById('street').value;
+                        var apart = document.getElementById('apart').value;
+                        var city = document.getElementById('city').value;
+                        var state = document.getElementById('state').value;
+                        var pincode = document.getElementById('pin').value;
+
+                        if (user == 'AnonymousUser'){
+                            var fname = document.getElementById('fname').value;
+                            var lname = document.getElementById('lname').value;
+                            var email = document.getElementById('mail').value;
+                            var phone = document.getElementById('phone').value;
+                            var password = document.getElementById('password').value;
+                        }
+
+                        fetch('save_shipping_address/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({
+                                razorpay_payment_id: razorpay_payment_id,
+                                doorno: doorno,
+                                street:street,
+                                apart:apart,
+                                city: city,
+                                state: state,
+                                pincode: pincode,
+                                total: newTotal,
+                                fname:fname,
+                                lname:lname,
+                                email:email,
+                                phone:phone,
+                                password:password
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            alert('Transaction completed');
+                            cart = {}
+                            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+                            window.location.href = "/"
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    },
+                    "modal": {
+                        "ondismiss": function () {
+                            if (confirm("Are you sure, you want to close the form?")) {
+                                console.log("Checkout form closed by the user");
+                            } else {
+                                console.log("Complete the Payment");
+                            }
+                        }
+                    }
+                };
+
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            }
+
+            var form = document.getElementById('form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                document.getElementById('form-button').classList.add('hiddenbtn');
+                document.getElementById('payment-info').classList.remove('hiddenbtn');
+            });
+            
+            document.getElementById('rzp-button1').onclick = function (e) {
+                openRazorpay(newTotal);  // Open Razorpay with the updated amount
+                e.preventDefault();
+            }
+
+            // Apply coupon code and update the total and Razorpay amount
+            document.getElementById("apply_coupon").addEventListener("click", function() {
+                var couponCode = document.getElementById("coupon_code").value;
+                if (couponCode) {
+                    fetch('/apply_coupon/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            coupon_code: couponCode,
+                            shippingamt:shiptotal,
+                            total: total
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Coupon Applied Successfully!',
+                                icon: 'success',
+                                confirmButtonText: 'Great!'
+                            });
+                            var applyCouponButton = document.getElementById('apply_coupon');
+                            applyCouponButton.textContent = '✔ Applied';
+                            applyCouponButton.style.backgroundColor = 'green';
+                            applyCouponButton.style.color = 'white';
+                            newTotal = parseFloat(data.new_total); // Ensure new_total is correctly parsed as a float
+                            document.getElementById("order-total").textContent = ' ₹' + newTotal.toFixed(2);
+                            document.getElementById('rzp-button1').textContent = 'Pay ₹' + newTotal.toFixed(2);
+
+                            // Now we have to update Razorpay with the new total when opening it
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Invalid coupon code or usage limit reached!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                            document.getElementById('coupon_code').value = '';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    alert('Please enter a coupon code');
+                }
+            });
+
+            // Display alert if coupon has used count less than or equal to max usage
+            {% if coupon_used_count < coupon_max_usage %}
+                window.onload = function() {
+                        Swal.fire({
+                            title: '"{{coupon}}"',
+                            text: 'Apply Coupon code to get {{discount | floatformat:0}}% discount',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                };
+            {% endif %}
+
+            document.getElementById("codbtn").addEventListener("click",function(){
+                var doorno = document.getElementById('doorno').value;
+                var street = document.getElementById('street').value;
+                var apart = document.getElementById('apart').value;
+                var city = document.getElementById('city').value;
+                var state = document.getElementById('state').value;
+                var pincode = document.getElementById('pin').value;
+                if (user == 'AnonymousUser'){
+                    var fname = document.getElementById('fname').value;
+                    var lname = document.getElementById('lname').value;
+                    var email = document.getElementById('mail').value;
+                    var phone = document.getElementById('phone').value;
+                    var password = document.getElementById('password').value;
+                }
+                fetch('save_cod_shipping_address/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        doorno: doorno,
+                        street:street,
+                        apart:apart,
+                        city: city,
+                        state: state,
+                        pincode: pincode,
+                        total: newTotal,
+                        fname:fname,
+                        lname:lname,
+                        email:email,
+                        phone:phone,
+                        password:password
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Order Placed Successfully');
+                    cart = {}
+                    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+                    window.location.href = "/"
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+            });
+        </script>
+        <script>
+            document.getElementById("new").addEventListener("click", function() {
+                document.getElementById("doorno").value = "";
+                document.getElementById("street").value = "";
+                document.getElementById("apart").value = "";
+                document.getElementById("city").value = "";
+                document.getElementById("state").value = "";
+                document.getElementById("pin").value = "";
+            });
+        </script>
+{% endblock content %}

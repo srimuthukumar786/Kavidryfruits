@@ -1,0 +1,91 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Featured Products
+{% endblock title %}
+
+{% block content %}
+
+    <!-- breadcrumb start -->
+    <section class="about-breadcrumb">
+        <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="about-l">
+                            <ul class="about-link">
+                                <li class="go-home"><a href="/">Home</a></li>
+                                <li class="about-p"><span>Featured Products</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end -->
+    <!-- grid-list start -->
+    <section class="section-tb-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="grid-list-banner" style="background-image: url(image/slider17.jpg);">
+                        <div class="grid-banner-content">
+                            <h4>Bestseller</h4>
+                            <p>Praesent dapibus, neque id cursus Ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, facilisis luc...</p>
+                        </div>
+                    </div>
+                    <div class="grid-list-area">
+                        <div class="grid-pro">
+                            <ul class="grid-product">
+                                {% for p in products %}
+                                    <li class="grid-items">
+                                        <div class="tred-pro">
+                                            <div class="tr-pro-img">
+                                                <a href="{% url 'product_details' p.name%}">
+                                                    <img class="img-fluid" src="{{p.image.url}}" alt="pro-img1">
+                                                    <img class="img-fluid additional-image" src="{{p.image2.url}}" alt="additional image">
+                                                </a>
+                                            </div>
+                                            <div class="Pro-lable">
+                                                <span class="p-text">New</span>
+                                            </div>
+                                            <div class="pro-icn text-end">
+                                                <a href="wishlist.html" class="w-c-q-icn update-fav" id="btnFav" data-product="{{p.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="caption">
+                                            <h3><a href="">{{p.name}}</a></h3>
+                                            <div class="rating">
+                                                <i class="fa fa-star c-star"></i>
+                                                <i class="fa fa-star c-star"></i>
+                                                <i class="fa fa-star c-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                            <div class="pro-price">
+                                                <span class="new-price">Rs.{{p.price}}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="list-all-page">
+                        <span class="page-title">Showing 1 - 17 of 17 result</span>
+                        <div class="page-number">
+                            <a href="grid-list.html" class="active">1</a>
+                            <a href="grid-list-2.html">2</a>
+                            <a href="grid-list-3.html">3</a>
+                            <a href="grid-list-4.html">4</a>
+                            <a href="javascript:void(0)"><i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- grid-list start -->
+    {% endblock content %}

@@ -1,0 +1,93 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Order Tracking
+{% endblock title %}
+
+{% block content %}  
+        
+    <!-- breadcrumb start -->
+    <section class="about-breadcrumb">
+        <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="about-l">
+                            <ul class="about-link">
+                                <li class="go-home"><a href="/">Home</a></li>
+                                <li class="about-p"><span>Tracking</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end -->
+    <!-- Order complete start -->
+    <section class="section-tb-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="track-area">
+                        <div class="track-price">
+                            <ul class="track-order">
+                                <li>
+                                    <h4>Your order id is: {{item.order.id}}</h4>
+                                </li>
+                                <li><span class="track-status">Status:</span> {{item.order_status}}</li>
+                            </ul>
+                        </div>
+                        <div class="track-main">
+                            <div class="track">
+                                <div class="step Placed">
+                                    <span class="icon"><i class="fa fa-check"></i></span>
+                                    <span class="text">Placed</span>
+                                </div>
+                                <div class="step Shipped">
+                                    <span class="icon"><i class="fa fa-truck"></i></span>
+                                    <span class="text">Shipped</span>
+                                </div>
+                                <div class="step Delivered">
+                                    <span class="icon"><i class="fa fa-archive"></i></span>
+                                    <span class="text">Delivered</span>
+                                </div>
+                                <div class="step Cancelled">
+                                    <span class="icon"><i class="fa fa-close"></i>
+                                    </span> <span class="text">Cancelled</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Order complete end -->
+    <script>
+        // Get all the steps
+        var placed = document.querySelector('.Placed');
+        var shipped = document.querySelector('.Shipped');
+        var delivered = document.querySelector('.Delivered');
+        var cancelled = document.querySelector('.Cancelled')
+        
+        // Apply the "active" class based on order status
+        {% if item.order_status == 'Placed' %}
+            placed.classList.add("active");
+        {% elif item.order_status == 'Shipped' %}
+            placed.classList.add("active");
+            shipped.classList.add("active");
+        {% elif item.order_status == 'Delivered' %}
+            placed.classList.add("active");
+            shipped.classList.add("active");
+            delivered.classList.add("active");
+        {% elif item.order_status == 'Cancelled' %}
+            placed.classList.add("active1");
+            shipped.classList.add("active1");
+            delivered.classList.add("active1");
+            cancelled.classList.add("active1");
+        {% endif %}
+
+    </script>
+    {% endblock content %}

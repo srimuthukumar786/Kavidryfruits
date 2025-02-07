@@ -1,0 +1,35 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('',views.index,name='index'),
+    path('search',views.Search,name='search'),
+    path('register',views.register,name='register'),
+    path('loginpage',views.loginpage,name='loginpage'),
+    path('logout',views.logout_page,name='logout'),
+    path('otplogin',views.OTPlogin,name='otplogin'),
+    path('verifyotp/<int:user_id>',views.verify_otp,name='verifyotp'),
+    path('forgotpassword',views.forgotpassword,name='forgotpassword'),
+    path('forgotpasswordverifyotp/<int:user_id>',views.forgotpasswordverifyotp,name='forgotpasswordverifyotp'),
+    path('resetpassword/<int:user_id>',views.resetpassword,name='resetpassword'),
+    path('category/<str:slug>/',views.category,name='category'),
+    path('termsconditions',views.termsconditions,name='termsconditions'),
+    path("update_item/",views.updateItem,name='update_item'),
+    path("fav/",views.fav_page,name='fav'),
+    path('wishlist',views.wishlist,name='wishlist'),
+    path("product_details/<str:pname>",views.product,name="product_details"),
+    path('add_review/<int:pid>/',views.add_review,name='add_review'),
+    path('cartpage',views.cartpage,name='cartpage'),
+    path('checkout',views.checkout,name='checkout'),
+    path('apply_coupon/', views.apply_coupon, name='apply_coupon'),
+    path('save_shipping_address/',views.save_shipping_address,name='save_shipping_address'),
+    path('orders',views.myorders,name='orders'),
+    path('save_cod_shipping_address/',views.save_cod_shipping_address,name='save_shipping_address'),
+    path('tracking/<str:id>',views.tracking,name='tracking'),
+    path('bestseller',views.bestseller,name='bestseller'),
+    path('newproducts',views.newproducts,name='newproducts'),
+    path('featuredproducts',views.featuredproducts,name='featuredproducts'),
+    path('add_subscriber',views.add_subscriber,name='add_subscriber'),
+    path('remove_subscriber',views.remove_subscriber,name='remove_subscriber'),
+    path('orderreview/<int:pid>',views.orderreview,name='orderreview')
+]

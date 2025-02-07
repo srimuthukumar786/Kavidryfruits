@@ -1,0 +1,422 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+Products
+{% endblock title %}
+
+{% block content %}        
+        <!-- breadcrumb start -->
+        <section class="about-breadcrumb">
+            <div class="about-back section-tb-padding" style="background-image: url(static/images/about-image.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="about-l">
+                                <ul class="about-link">
+                                    <li class="go-home"><a href="/">Home</a></li>
+                                    <li class="about-p"><span>{{product}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb end -->
+        <!-- product info start -->
+        <section class="section-tb-padding pro-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-12 col-md-12 col-xs-12 pro-image">
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 larg-image">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="image-11">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{product.image.url}})">
+                                                <img src="{{product.Imageurl}}" class="img-fluid" alt="image"> 
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    {% for i in product.gallery.all %}
+                                    <div class="tab-pane fade" id="image-{{i.id}}">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url({{i.image.url}})">
+                                                <img src="{{i.image.url}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <ul class="nav nav-tabs pro-page-slider owl-carousel owl-theme">
+                                    <li class="nav-item items">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#image-11"><img src="{{product.image.url}}" class="img-fluid" alt="image"></a>
+                                    </li>
+                                    {% for i in product.gallery.all %}
+                                        <li class="nav-item items">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#image-{{i.id}}"><img src="{{i.image.url}}" class="img-fluid" alt="iamge"></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 pro-info">
+                                <h4>{{product.name }}</h4>
+                                <input type="hidden" id="categoryname" value="{{product.category.name}}">
+                                <div class="rating">
+                                    {% if not product.average_rating %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 0 and product.average_rating < 2 %}
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 1 and product.average_rating < 3 %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 2 and product.average_rating < 4 %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 3 and product.average_rating < 5 %}
+                                           <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 4  %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="pro-availabale">
+                                    <span class="available">Availability:</span>
+                                    {% if product.stock %}
+                                    <span class="pro-instock">Out of stock</span>
+                                    {% else %}
+                                    <span class="pro-instock">In stock</span>
+                                    {% endif %}
+                                </div>
+                                {% if product.category.name != 'Combo' %}
+                                <div class="pro-price">
+                                    <span>&#8377;</span>
+                                    <input type="hidden" value="{{product.price1}}" id="price1">
+                                    <span class="new-price" id="100gprice">{{product.getPrice1 | floatformat:2}}</span>
+                                    <input type="hidden" value="{{product.price2}}" id="price2"> 
+                                    <span class="new-price" id="500gprice" style="display: none;">{{product.getPrice3 | floatformat:2}}</span>
+                                    <input type="hidden" value="{{product.price3}}" id="price3">
+                                    <span class="new-price" id="250gprice" style="display: none;">{{product.getPrice2 | floatformat}}</span>
+                                    <input type="hidden" value="{{product.price4}}" id="price4">
+                                    <span class="new-price" id="1kgprice" style="display: none;">{{product.getPrice4 | floatformat}}</span>
+                                    
+                                    {% if product.discount %}
+                                    <div class="Pro-lable">
+                                        <span class="old-price"><del id="old-price"></del></span>
+                                        <span class="p-discount">{{product.discount|floatformat:0}}%</span>
+                                    </div>
+                                    {% endif %}
+                                    <input type="hidden" id="old-price">
+                                </div>
+                                <span class="pro-details">Hurry up! only <span class="pro-number">7</span> products left in stock!</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and</p>
+                                <div class="pro-items">
+                                    <span class="pro-size">Size:</span>
+                                    <ul class="pro-wight">
+                                        <li><a href="javascript:void(0)" class="active" id="100g">100G</a></li>
+                                        <li><a href="javascript:void(0)" id="250g">250G</a></li>
+                                        <li><a href="javascript:void(0)" id="500g">500G</a></li>
+                                        <li><a href="javascript:void(0)" id="1kg">1KG</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pro-qty">
+                                    <span class="qty">Quantity:</span>
+                                    <div class="plus-minus">
+                                        <span>
+                                            <a href="javascript:void(0)" class="minus-btn text-black" id="decrementbtn">-</a>
+                                            <input type="text" name="name" value="1" id="quantity">
+                                            <a href="javascript:void(0)" class="plus-btn text-black" id="incrementbtn">+</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="pro-btn">
+                                    {% if product.stock %}
+                                    <button class="btn btn-style1" disabled>Out of Stock</button>
+                                    {% else %}
+                                    <a href="" class="btn btn-style1 update-fav" id="btnFav" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+                                    <a href="" class="btn btn-style1 update-crt" id="Cartbtn" data-product="{{product.id}}" data-action="add"><i class="fa fa-shopping-bag"></i> Add to cart</a>
+                                    {% comment %} <a href="" class="btn btn-style1">Buy now</a> {% endcomment %}
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                <div class="pro-price">
+                                    <span>&#8377;</span>
+                                    <input type="hidden" value="{{product.price1}}" id="price1">
+                                    <span class="new-price" id="comboprice">{{product.getPrice1 | floatformat:2}}</span>
+                                    {% if product.discount %}
+                                    <div class="Pro-lable">
+                                        <span class="old-price">&#8377;<del id="old-price"></del></span>
+                                        <span class="p-discount">{{product.discount|floatformat:0}}%</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and</p>
+                                <div class="pro-items">
+                                    <span class="pro-size">Size:</span>
+                                    <ul class="pro-wight">
+                                        {% if product.name == 'Mixed Nuts' %}
+                                        <li><a href="javascript:void(0)" class="active" id="size">500G</a></li>
+                                        {% elif product.name == 'Mixed Dates' %}
+                                        <li><a href="javascript:void(0)" class="active" id="size">300G</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <div class="pro-qty">
+                                    <span class="qty">Quantity:</span>
+                                    <div class="plus-minus">
+                                        <span>
+                                            <a href="javascript:void(0)" class="minus-btn text-black" id="decrementbtn">-</a>
+                                            <input type="text" name="name" value="1" id="quantity">
+                                            <a href="javascript:void(0)" class="plus-btn text-black" id="incrementbtn">+</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="pro-btn">
+                                    {% if product.stock %}
+                                    <button class="btn btn-style1" disabled>Out of Stock</button>
+                                    {% else %}
+                                    <a href="" class="btn btn-style1 update-fav" id="btnFav" data-product="{{product.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+                                    <a href="" class="btn btn-style1 update-crt" id="Cartbtn" data-product="{{product.id}}" data-action="add"><i class="fa fa-shopping-bag"></i> Add to cart</a>
+                                    {% comment %} <a href="" class="btn btn-style1">Buy now</a> {% endcomment %}
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                <div class="share">
+                                    <span class="share-lable">Share:</span>
+                                    <ul class="share-icn">
+                                        <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a href="javascript:void(0)"><i class="fa fa-pinterest"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pay-img">
+                                    <a href="checkout-1.html">
+                                        <img src="{% static 'images/pay-image.jpg' %}" class="img-fluid" alt="pay-image">
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-12 col-md-12 col-xs-12 pro-shipping">
+                        <div class="product-service">
+                            <div class="icon-title">
+                                <span><i class="ti-truck"></i></span>
+                                <h4>Delivery info</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting the printing and typesetting industry.</p>
+                        </div>
+                        <div class="product-service">
+                            <div class="icon-title">
+                                <span><i class="ti-reload"></i></span>
+                                <h4>30 days returns</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting the printing and typesetting industry.</p>
+                        </div>
+                        <div class="product-service">
+                            <div class="icon-title">
+                                <span><i class="ti-id-badge"></i></span>
+                                <h4>10 year warranty</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting the printing and typesetting industry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- product info end -->
+        <!-- product page tab start -->
+        <section class="section-b-padding pro-page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="pro-page-tab">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#tab-1">Description</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Reviews</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tab-1">
+                                    <div class="tab-1content">
+                                        <h4>More details</h4>
+                                        <ul class="tab-description">
+                                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+                                            <li>Lorem Ipsum has been the ‘s standard dummy text. Lorem Ipsumum is simply dummy text.</li>
+                                            <li>Type here your detail one by one li more add</li>
+                                            <li>Has been the industry’s standard dummy text ever since. Lorem Ips</li>
+                                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+                                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ‘s standard dummy text. Lorem Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade show  reviewdata" id="tab-2">
+                                    <h4 class="reviews-title">Customer reviews</h4>
+                                    <div class="customer-reviews t-desk-2">
+                                        <span class="p-rating">
+                                            {% if not product.average_rating %}
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 0 and product.average_rating < 2 %}
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 1 and product.average_rating < 3 %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 2 and product.average_rating < 4 %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 3 and product.average_rating < 5 %}
+                                           <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                        {% elif product.average_rating > 4  %}
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                            <i class="fa fa-star d-star"></i>
+                                    {% endif %} 
+                                        </span>
+                                        <p class="review-desck">Based on {{product.reviews.count}} reviews</p>
+                                        {% if request.user.is_authenticated %}
+                                        <a href="#add-review" data-bs-toggle="collapse">Write a review</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="review-form collapse" id="add-review" >
+                                        <h4>Write a review</h4>
+                                        <form id="review-form" action="{% url 'add_review' product.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <div>
+                                            {{review_form.review}}
+                                            </div>
+                                            <div>
+                                                {{review_form.rating}}
+                                                </div>
+
+                                            
+                                            <button type="submit" class="btn btn-style1 mt-2">Submit</button>
+                                        </form>
+                                    </div>
+                                    {% for r in product.reviews.all %}
+                                    <div class="customer-reviews">
+                                        <span class="p-rating">
+                                            {% if not r.rating %}
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif r.rating > 0 and r.rating < 2 %}
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif r.rating > 1 and r.rating < 3 %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif r.rating > 2 and r.rating < 4 %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif r.rating > 3 and r.rating < 5 %}
+                                               <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif r.rating > 4  %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                    {% endif %}   
+                                        </span>
+                                        <h4 class="review-head">{{r.review}}</h4>
+                                        <span class="reviews-editor">{{r.user.email}} <span class="review-name">on</span> {{r.date}}</span>
+                                        <p class="r-description">{{r.review}}</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- product page tab end -->
+        <!-- releted product start -->
+        <section class="section-b-padding pro-releted">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="section-title">
+                            <h2>Related Products</h2>
+                        </div>
+                        <div class="releted-products owl-carousel owl-theme">
+                            {% for rp in related_products %}
+                            <div class="items">
+                                <div class="tred-pro">
+                                    <div class="tr-pro-img">
+                                        <a href="{% url 'product_details' rp.name%}">
+                                            <img class="img-fluid" src="{{rp.Imageurl}}" alt="pro-img1">
+                                            <img class="img-fluid additional-image" src="{{rp.image2.url}}" alt="additional image">
+                                        </a>
+                                    </div>
+                                    <div class="Pro-lable">
+                                        <span class="p-text">New</span>
+                                    </div>
+                                    <div class="pro-icn text-end">
+                                        <a href="" class="w-c-q-icn update-fav" id="btnFav" data-product="{{rp.id}}" data-action="add"><i class="fa fa-heart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <h3><a href="{% url 'product_details' rp.name%}">{{rp.name}}</a></h3>
+                                    <div class="rating">
+                                        {% if not rp.average_rating %}
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif rp.average_rating > 0 and rp.average_rating < 2 %}
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif rp.average_rating > 1 and rp.average_rating < 3 %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif f.average_rating > 2 and rp.average_rating < 4 %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif rp.average_rating > 3 and rp.average_rating < 5 %}
+                                               <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                            {% elif rp.average_rating > 4  %}
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                                <i class="fa fa-star d-star"></i>
+                                    {% endif %}
+                                                 
+                                    </div>
+                                    <div class="pro-price">
+                                        <span class="new-price">Rs.{{rp.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- releted product end -->
+        
+{% endblock content %}
